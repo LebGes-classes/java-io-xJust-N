@@ -22,12 +22,12 @@ public class XlsxLoader implements DataLoader {
     }
 
     @Override
-    public JournalData load() throws IOException {
-        return new JournalData(
-                loadAndToMap(TEACHERS.getValue(), Teacher.class),
-                loadAndToMap(SUBJECTS.getValue(), Subject.class),
-                loadAndToMap(STUDENTS.getValue(), Student.class)
-        );
+    public void load() throws IOException {
+        JournalData instance = JournalData.getInstance();
+
+        instance.setTeachers(loadAndToMap(TEACHERS.getValue(), Teacher.class));
+        instance.setSubjects(loadAndToMap(SUBJECTS.getValue(), Subject.class));
+        instance.setStudents(loadAndToMap(STUDENTS.getValue(), Student.class));
     }
 
     private <T extends Nameable> Map<String, T> loadAndToMap(String sheetName, Class<T> tClass) throws IOException {

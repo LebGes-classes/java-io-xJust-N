@@ -9,9 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JournalData {
-    private final Map<String, Teacher> teachers;
-    private final Map<String, Student> students;
-    private final Map<String, Subject> subjects;
+    private static final JournalData instance = new JournalData();
+    private Map<String, Teacher> teachers;
+    private Map<String, Student> students;
+    private Map<String, Subject> subjects;
 
 
     private JournalData(){
@@ -19,13 +20,42 @@ public class JournalData {
         teachers = new HashMap<>();
         subjects = new HashMap<>();
     }
-    JournalData(Map<String, Teacher> teachers, Map<String, Subject> subjects, Map<String, Student> students){
-        this.teachers = teachers;
-        this.students = students;
-        this.subjects = subjects;
+
+    public static JournalData getInstance() {
+        return instance;
     }
 
-    public JournalData load(DataLoader loadStrategy) throws IOException {
-        return loadStrategy.load();
+    public void load(DataLoader loadStrategy) throws IOException {
+        loadStrategy.load();
+    }
+
+    public Map<String, Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Map<String, Teacher> teachers) {
+        this.teachers = teachers;
+    }
+
+    public Map<String, Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Map<String, Student> students) {
+        this.students = students;
+    }
+
+    public void setAll(JournalData data){
+        setTeachers(data.getTeachers());
+        setSubjects(data.getSubjects());
+        setStudents(data.getStudents());
+    }
+
+    public Map<String, Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Map<String, Subject> subjects) {
+        this.subjects = subjects;
     }
 }

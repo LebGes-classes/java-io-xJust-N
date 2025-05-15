@@ -1,9 +1,8 @@
 package app.main.java.model;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import app.main.java.repository.JournalData;
+
+import java.util.*;
 
 public class Student implements Printable, Nameable{
     private String name;
@@ -14,6 +13,12 @@ public class Student implements Printable, Nameable{
     }
     public Student(String name, Map<Subject, List<Integer>> marks){
         this.marks = marks;
+    }
+    public Student(String name, String nameSubject, Integer... subjectMarks){
+        setName(name);
+        this.marks = new HashMap<>();
+        Subject subject = JournalData.getInstance().getSubjects().get(nameSubject);
+        marks.put(subject, Arrays.stream(subjectMarks).toList());
     }
 
     public void addMark(Subject sub, List<Integer> listOfMarks){

@@ -13,7 +13,7 @@ public class JsonLoader implements DataLoader{
     }
 
     @Override
-    public JournalData load() throws IOException {
-        return parser.loadFromJson(JournalData.class);
+    public void load() throws IOException {
+        JournalData.getInstance().setAll(parser.loadFromJson(JournalData.class));
     }
 }

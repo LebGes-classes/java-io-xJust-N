@@ -20,29 +20,25 @@ public class JsonDataHandler {
         this.file = file;
     }
 
-    public <T> void saveToJson(T data) {
+    public <T> void saveToJson(T data) throws IOException {
         if(!file.exists()){
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                throw new RuntimeException("Невозможно создать файл: " + e);
+                throw new IOException("Невозможно создать файл: " + e);
             }
         }
         try (FileWriter writer = new FileWriter(file)) {
             gson.toJson(data, writer);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    public <T> T loadFromJson(Class<T> tClass) {
+    public <T> T loadFromJson(Class<T> tClass) throws IOException{
         if(!file.exists())
             return null;
 
         try (FileReader reader = new FileReader(file)) {
             return gson.fromJson(reader, tClass);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }
