@@ -5,21 +5,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Student extends Profile implements Printable{
-    private String group;
+public class Student implements Printable{
+    private String name;
     private final Map<Subject, List<Integer>> marks;
 
-    Student(String name, int age, boolean sex, String group){
-        super(name, age, sex);
-        setGroup(group);
+    public Student(String name){
         marks = new HashMap<>();
     }
+    public Student(String name, Map<Subject, List<Integer>> marks){
+        this.marks = marks;
+    }
 
-    public void addMark(Subject sub, int mark){
+    public void addMark(Subject sub, List<Integer> listOfMarks){
         if(!marks.containsKey(sub))
             marks.put(sub, new LinkedList<>());
 
-        marks.get(sub).add(mark);
+        marks.get(sub).addAll(listOfMarks);
     }
 
     public void replaceLastMark(Subject sub, int mark){
@@ -28,18 +29,9 @@ public class Student extends Profile implements Printable{
         markList.add(mark);
     }
 
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
     @Override
     public String getInfo(){
-        String info = super.getInfo() + "\n" +
-                "Группа: " + getGroup() + "\n" +
+        String info = "Имя: " + name + "\n" +
                 "Оценки: \n";
 
         for(Subject sub : marks.keySet()){

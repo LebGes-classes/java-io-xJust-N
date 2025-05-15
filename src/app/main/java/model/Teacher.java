@@ -1,7 +1,17 @@
 package app.main.java.model;
 
-public class Teacher extends Profile implements Printable{
-    Teacher(String name, int age, boolean sex){
-        super(name, age, sex);
+public class Teacher implements Printable{
+    private final String name;
+
+    public Teacher(String name){
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getInfo() {
+        return "";
     }
 }

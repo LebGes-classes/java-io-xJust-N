@@ -8,6 +8,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="apache.poi" level="application" />
     <orderEntry type="library" name="google.code.gson" level="application" />
+    <orderEntry type="library" name="apache.poi.ooxml" level="application" />
   </component>
 </module>

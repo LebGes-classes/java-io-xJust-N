@@ -9,8 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-public class JsonDataHandler {
-    private final String FILE_NAME = "resources/app_data.json";
+public class JsonDataHandler implements DataLoader, DataSaver{
+    private final String FILE_NAME = FileStringsEnum.JSON_FILE_NAME.getValue();
     private final Gson gson;
     private final File file;
 
@@ -21,7 +21,8 @@ public class JsonDataHandler {
         file = new File(FILE_NAME);
     }
 
-    public <T> void saveToJson(T data) {
+    @Override
+    public <T> void save(T data) {
         if(!file.exists()){
             try {
                 file.createNewFile();
@@ -36,12 +37,13 @@ public class JsonDataHandler {
         }
     }
 
-    public <T> T loadFromJson(Class<T> tClass) {
+    @Override
+    public JournalData load() {
         if(!file.exists())
             return null;
 
         try (FileReader reader = new FileReader(FILE_NAME)) {
-            return gson.fromJson(reader, tClass);
+            return gson.fromJson(reader, JournalData.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
