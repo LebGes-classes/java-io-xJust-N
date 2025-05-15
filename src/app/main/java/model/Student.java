@@ -1,47 +1,42 @@
 package app.main.java.model;
 
-import app.main.java.repository.JournalData;
-
 import java.util.*;
 
 public class Student implements Printable, Nameable{
     private String name;
-    private final Map<Subject, List<Integer>> marks;
+    private final Map<String, List<Integer>> marks;
 
     public Student(String name){
         marks = new HashMap<>();
     }
-    public Student(String name, Map<Subject, List<Integer>> marks){
-        this.marks = marks;
-    }
-    public Student(String name, String nameSubject, Integer... subjectMarks){
+    public Student(String name, String subjectName, Integer... subjectMarks){
         setName(name);
         this.marks = new HashMap<>();
-        Subject subject = JournalData.getInstance().getSubjects().get(nameSubject);
-        marks.put(subject, Arrays.stream(subjectMarks).toList());
+        marks.put(subjectName, Arrays.stream(subjectMarks).toList());
     }
 
-    public void addMark(Subject sub, List<Integer> listOfMarks){
-        if(!marks.containsKey(sub))
-            marks.put(sub, new LinkedList<>());
+    public void addMark(String subName, List<Integer> listOfMarks){
+        if(!marks.containsKey(subName))
+            marks.put(subName, new LinkedList<>());
 
-        marks.get(sub).addAll(listOfMarks);
+        marks.get(subName).addAll(listOfMarks);
     }
 
-    public void replaceLastMark(Subject sub, int mark){
-        List<Integer> markList = marks.get(sub);
+    public void replaceLastMark(String subName, int mark){
+        List<Integer> markList = marks.get(subName);
         markList.removeLast();
         markList.add(mark);
     }
 
     @Override
     public String getInfo(){
-        String info = "Имя: " + name + "\n" +
+        String info =
+                "Имя: " + name + "\n" +
                 "Оценки: \n";
 
-        for(Subject sub : marks.keySet()){
-           info += sub.getName() + ": ";
-           for(int i : marks.get(sub)){
+        for(String subName : marks.keySet()){
+           info += subName + ": ";
+           for(int i : marks.get(subName)){
                info += i + " ";
            }
            info += "\n";
