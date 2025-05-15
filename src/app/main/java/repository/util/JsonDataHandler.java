@@ -1,4 +1,4 @@
-package app.main.java.repository;
+package app.main.java.repository.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,20 +9,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-public class JsonDataHandler implements DataLoader, DataSaver{
-    private final String FILE_NAME = FileStringsEnum.JSON_FILE_NAME.getValue();
+public class JsonDataHandler {
     private final Gson gson;
     private final File file;
 
-    JsonDataHandler(){
+    public JsonDataHandler(File file){
         gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
-        file = new File(FILE_NAME);
+        this.file = file;
     }
 
-    @Override
-    public <T> void save(T data) {
+    public <T> void saveToJson(T data) {
         if(!file.exists()){
             try {
                 file.createNewFile();
@@ -30,20 +28,19 @@ public class JsonDataHandler implements DataLoader, DataSaver{
                 throw new RuntimeException("Невозможно создать файл: " + e);
             }
         }
-        try (FileWriter writer = new FileWriter(FILE_NAME)) {
+        try (FileWriter writer = new FileWriter(file)) {
             gson.toJson(data, writer);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @Override
-    public JournalData load() {
+    public <T> T loadFromJson(Class<T> tClass) {
         if(!file.exists())
             return null;
 
-        try (FileReader reader = new FileReader(FILE_NAME)) {
-            return gson.fromJson(reader, JournalData.class);
+        try (FileReader reader = new FileReader(file)) {
+            return gson.fromJson(reader, tClass);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

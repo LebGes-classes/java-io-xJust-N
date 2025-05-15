@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Student implements Printable{
+public class Student implements Printable, Nameable{
     private String name;
     private final Map<Subject, List<Integer>> marks;
 
@@ -46,6 +46,13 @@ public class Student implements Printable{
     }
 
 
+    @Override
+    public void setName(String s) {
+        this.name = s;
+    }
 
-
+    @Override
+    public String getName() {
+        return name;
+    }
 }

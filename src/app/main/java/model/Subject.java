@@ -1,7 +1,7 @@
 package app.main.java.model;
 
-public class Subject implements Printable{
-    private final String name;
+public class Subject implements Printable, Nameable{
+    private String name;
     private Teacher teacher;
 
     Subject(String name){
@@ -16,6 +16,12 @@ public class Subject implements Printable{
         this.teacher = teacher;
     }
 
+    @Override
+    public void setName(String s) {
+        this.name = s;
+    }
+
+    @Override
     public String getName() {
         return name;
     }
