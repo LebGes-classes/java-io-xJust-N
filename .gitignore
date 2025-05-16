@@ -1,2 +1,4 @@
 *.bkp
 /out
+diagram/description.txt
+/lib
