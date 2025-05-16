@@ -1,4 +1,4 @@
-package app.main.java.model;
+package com.journal_app.model;
 
 
 import java.util.HashMap;
@@ -11,6 +11,7 @@ public class Student implements Printable, Nameable{
     private final Map<String, List<Integer>> marks;
 
     public Student(String name){
+        this.name = name;
         marks = new HashMap<>();
     }
 

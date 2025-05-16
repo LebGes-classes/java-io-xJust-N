@@ -1,11 +1,14 @@
-package app.main.java.repository;
+package com.journal_app.repository.loaders;
 
-import app.main.java.repository.util.JsonDataHandler;
+import com.journal_app.repository.DataLoader;
+import com.journal_app.repository.FileStringsEnum;
+import com.journal_app.repository.JournalData;
+import com.journal_app.repository.util.JsonDataHandler;
 
 import java.io.File;
 import java.io.IOException;
 
-public class JsonLoader implements DataLoader{
+public class JsonLoader implements DataLoader {
     private final JsonDataHandler parser;
 
     public JsonLoader() {

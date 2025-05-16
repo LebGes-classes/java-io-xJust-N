@@ -1,4 +1,4 @@
-package app.main.java.repository.util;
+package com.journal_app.repository.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

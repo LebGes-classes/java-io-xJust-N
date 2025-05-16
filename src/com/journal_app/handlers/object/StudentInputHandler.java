@@ -1,7 +1,6 @@
-package app.main.java.handlers.ObjectHandlers;
+package com.journal_app.handlers.object;
 
-import app.main.java.handlers.InputHandler;
-import app.main.java.model.Student;
+import com.journal_app.model.Student;
 
 import java.util.Map;
 
@@ -19,12 +18,6 @@ public class StudentInputHandler extends ObjectInputHandler<Student> {
     void newObjectMenu() {
         String name = ui.read("Введите имя");
         mapping.put(name, new Student(name));
-    }
-
-    @Override
-    void deleteObjectMenu() {
-        String name = ui.read("Введите имя");
-        mapping.remove(st.getName());
     }
 
     @Override

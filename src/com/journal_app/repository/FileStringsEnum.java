@@ -1,7 +1,7 @@
-package app.main.java.repository;
+package com.journal_app.repository;
 
-public enum FileStringsEnum {
-    TEACHERS("преподаватели"),
+public enum FileStringsEnum {   //Строки связанные с входным файлом
+    TEACHERS("преподаватели"),  //Названия ожидаемых страниц в xlsx
     SUBJECTS("предметы"),
     STUDENTS("студенты"),
     XLSX_FILE_NAME("resources/journal.xlsx"),

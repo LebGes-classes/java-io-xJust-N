@@ -1,10 +1,12 @@
-package app.main.java.repository;
+package com.journal_app.repository.loaders;
 
-import app.main.java.model.Nameable;
-import app.main.java.model.Student;
-import app.main.java.model.Subject;
-import app.main.java.model.Teacher;
-import app.main.java.repository.util.ExcelParser;
+import com.journal_app.model.Nameable;
+import com.journal_app.model.Student;
+import com.journal_app.model.Subject;
+import com.journal_app.model.Teacher;
+import com.journal_app.repository.DataLoader;
+import com.journal_app.repository.JournalData;
+import com.journal_app.repository.util.ExcelParser;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static app.main.java.repository.FileStringsEnum.*;
+import static com.journal_app.repository.FileStringsEnum.*;
 
 public class XlsxLoader implements DataLoader {
     private final ExcelParser parser;
@@ -33,7 +35,8 @@ public class XlsxLoader implements DataLoader {
     private <T extends Nameable> Map<String, T> loadAndToMap(String sheetName, Class<T> tClass) throws IOException {
         Map<String, T> mapping = new HashMap<>();
         List<T> list = parser.parseObjectsFromSheetName(sheetName, tClass);
-        list.forEach(s -> mapping.put(s.getName(), s));
+        if(list != null)
+            list.forEach(s -> mapping.put(s.getName(), s));
         return mapping;
     }
 }

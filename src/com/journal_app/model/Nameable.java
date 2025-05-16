@@ -1,4 +1,4 @@
-package app.main.java.model;
+package com.journal_app.model;
 
 public interface Nameable {
     void setName(String s);

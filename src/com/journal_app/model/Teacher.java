@@ -1,4 +1,4 @@
-package app.main.java.model;
+package com.journal_app.model;
 
 public class Teacher implements Printable, Nameable{
     private String name;
@@ -19,6 +19,6 @@ public class Teacher implements Printable, Nameable{
 
     @Override
     public String getInfo() {
-        return "";
+        return "Имя: " + name + "\n";
     }
 }

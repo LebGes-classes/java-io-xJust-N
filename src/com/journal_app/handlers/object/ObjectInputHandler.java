@@ -1,14 +1,14 @@
-package app.main.java.handlers.ObjectHandlers;
+package com.journal_app.handlers.object;
 
-import app.main.java.handlers.InputHandler;
-import app.main.java.model.Nameable;
-import app.main.java.model.Printable;
-import app.main.java.ui.Ui;
+import com.journal_app.handlers.InputHandler;
+import com.journal_app.model.Nameable;
+import com.journal_app.model.Printable;
+import com.journal_app.ui.Ui;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public abstract class ObjectInputHandler<T extends Printable>  extends InputHandler {
+public abstract class ObjectInputHandler<T extends Printable & Nameable>  extends InputHandler {
     protected Map<String, T> mapping;
     protected Ui ui = new Ui();
 
@@ -27,7 +27,10 @@ public abstract class ObjectInputHandler<T extends Printable>  extends InputHand
     }
 
     abstract void newObjectMenu();
-    abstract void deleteObjectMenu();
+
+    private void deleteObjectMenu(){
+        deleteByName(ui.read());
+    };
 
     @Override
     public String getInfo() {
@@ -38,13 +41,12 @@ public abstract class ObjectInputHandler<T extends Printable>  extends InputHand
 
     private void infoMenu() {
         ui.clearConsole();
-        ui.print(
-                        "1) Показать обо всех\n" +
-                        "2) Показать об одном\n"
+        ui.print("1) Показать обо всех\n" +
+                "2) Показать об одном\n"
         );
 
         switch (ui.read()) {
-            case "1" -> ui.print(mapping.values());
+            case "1" -> mapping.values().forEach(s -> ui.print(s));
             case "2" -> {
                 ui.print("Введите имя");
                 ui.print(getObjectByName(ui.read()).getInfo());
@@ -62,6 +64,6 @@ public abstract class ObjectInputHandler<T extends Printable>  extends InputHand
         mapping.remove(name);
     }
     protected void add(T obj){
-        mapping.put(obj.getName())
+        mapping.put(obj.getName(), obj);
     }
 }

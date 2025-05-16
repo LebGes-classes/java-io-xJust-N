@@ -1,8 +1,8 @@
-package app.main.java.handlers;
+package com.journal_app.handlers;
 
-import app.main.java.repository.JournalData;
-import app.main.java.repository.JsonLoader;
-import app.main.java.repository.XlsxLoader;
+import com.journal_app.repository.JournalData;
+import com.journal_app.repository.loaders.JsonLoader;
+import com.journal_app.repository.loaders.XlsxLoader;
 
 import java.io.IOException;
 
@@ -10,8 +10,7 @@ public class LoadInputHandler extends InputHandler {
     public LoadInputHandler() {}
 
     @Override
-    public void handle(String command) {
-        try {
+    public void handle(String command) throws IOException {
             switch (command) {
                 case ("1"):
                     JournalData.load(new XlsxLoader());
@@ -20,9 +19,6 @@ public class LoadInputHandler extends InputHandler {
                     JournalData.load(new JsonLoader());
                     break;
             }
-        } catch (IOException e) {
-            throw new RuntimeException("Не удалось загрузить файл:\n" + e);
-        }
     }
 
 

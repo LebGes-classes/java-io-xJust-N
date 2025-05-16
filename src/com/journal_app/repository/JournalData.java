@@ -1,15 +1,15 @@
-package app.main.java.repository;
+package com.journal_app.repository;
 
-import app.main.java.model.Student;
-import app.main.java.model.Subject;
-import app.main.java.model.Teacher;
+import com.journal_app.model.Student;
+import com.journal_app.model.Subject;
+import com.journal_app.model.Teacher;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class JournalData {
-    private static final JournalData instance = new JournalData();
+    private static JournalData instance = new JournalData();
     private Map<String, Teacher> teachers;
     private Map<String, Student> students;
     private Map<String, Subject> subjects;
@@ -22,11 +22,16 @@ public class JournalData {
     }
 
     public static JournalData getInstance() {
+        if(instance == null)
+            instance = new JournalData();
         return instance;
     }
 
     public static void load(DataLoader loadStrategy) throws IOException {
         loadStrategy.load();
+    }
+    public void save(DataSaver saveStrategy) throws IOException {
+        saveStrategy.save(this);
     }
 
     public Map<String, Teacher> getTeachers() {

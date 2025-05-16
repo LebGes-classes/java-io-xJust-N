@@ -1,7 +1,9 @@
-package app.main.java.handlers;
+package com.journal_app.handlers;
 
-import app.main.java.handlers.ObjectHandlers.StudentInputHandler;
-import app.main.java.repository.JournalData;
+import com.journal_app.handlers.object.StudentInputHandler;
+import com.journal_app.handlers.object.SubjectInputHandler;
+import com.journal_app.handlers.object.TeacherInputHandler;
+import com.journal_app.repository.JournalData;
 
 public class MainMenuInputHandler extends InputHandler{
     public MainMenuInputHandler(){}

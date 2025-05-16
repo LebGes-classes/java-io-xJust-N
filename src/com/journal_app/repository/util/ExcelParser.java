@@ -1,35 +1,33 @@
-package app.main.java.repository.util;
+package com.journal_app.repository.util;
 
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+
+import static com.journal_app.repository.FileStringsEnum.XLSX_FILE_NAME;
 
 
 public class ExcelParser {
     private final File file;
 
-    public ExcelParser(File file){
+    public ExcelParser(File file) {
         this.file = file;
     }
 
-    public <T> List<T> parseObjectsFromSheetName(String sheetName, Class<T> tClass) throws IOException {//Возвращает список спаршенных объектов, где строчка в xlsx - параметры конструктора
+    public <T> List<T> parseObjectsFromSheetName(String sheetName, Class<T> tClass) throws IOException {    //Возвращает список спаршенных объектов, где строчка в xlsx - параметры конструктора
         List<T> listOfObjects = new LinkedList<>();
 
         try (FileInputStream fis = new FileInputStream(file);
-             Workbook workbook = WorkbookFactory.create(fis)) {
+             XSSFWorkbook workbook = new XSSFWorkbook(file)) {
             Sheet sheet = workbook.getSheet(sheetName);
             if (sheet == null)
-                throw new IOException("Страница в " + file + " с именем " + sheetName + " не найдена");
+                return null;
 
             int startRow = sheet.getTopRow() + 1;   // Пропуск верхней строчки с обозначениями
             int lastRow = sheet.getLastRowNum();
@@ -64,11 +62,15 @@ public class ExcelParser {
                 } catch (NoSuchMethodException e) {
                     throw new NoSuchMethodException("Класс не имеет нужного конструктора для типов параметров: " + (Arrays.toString(paramsTypes)));
                 }
+
             }
         } catch (FileNotFoundException e) {
             throw new IOException("Файл не найден: " + e);
-        } catch (InvocationTargetException | IllegalAccessException | InstantiationException | NoSuchMethodException e){
+        } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
+                 NoSuchMethodException e) {
             throw new IOException("Ошибка вызова конструктора:\n" + e);
+        } catch (Exception e) {
+            throw new IOException("Непредвиденная ошибка: " + e);
         }
         return listOfObjects;
     }

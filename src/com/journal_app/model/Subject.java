@@ -1,13 +1,14 @@
-package app.main.java.model;
+package com.journal_app.model;
 
 public class Subject implements Printable, Nameable{
     private String name;
     private String teacherName;
 
-    Subject(String name){
+    public Subject(String name){
         this.name = name;
     }
-    Subject(String name, String teacherName){
+
+    public Subject(String name, String teacherName){
         this.name = name;
         this.teacherName = teacherName;
     }
@@ -38,6 +39,7 @@ public class Subject implements Printable, Nameable{
 
     @Override
     public String getInfo() {
-        return "";
+        return "Название: " + name + "\n" +
+                "Преподаватель: " + teacherName + "\n";
     }
 }
