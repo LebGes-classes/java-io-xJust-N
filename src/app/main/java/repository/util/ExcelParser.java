@@ -35,7 +35,7 @@ public class ExcelParser {
             int lastRow = sheet.getLastRowNum();
             for (int j = startRow; j < lastRow; j++) {
                 Row row = sheet.getRow(j);
-                
+
                 int startCell = row.getFirstCellNum();
                 int lastCell = row.getLastCellNum();
                 Class<?>[] paramsTypes = new Class<?>[lastCell - startCell];
@@ -45,19 +45,18 @@ public class ExcelParser {
                     switch (cell.getCellType()) {
                         case STRING:
                             params[k - startCell] = cell.getStringCellValue();
-                            paramsTypes[k - startCell] = String.class;
                             break;
                         case NUMERIC:
-                            params[k - startCell] = cell.getNumericCellValue();
-                            paramsTypes[k - startCell] = int.class;
+                            params[k - startCell] = (int) cell.getNumericCellValue();
                             break;
                         case BOOLEAN:
                             params[k - startCell] = cell.getBooleanCellValue();
-                            paramsTypes[k - startCell] = boolean.class;
                             break;
                         default:
                             throw new IOException("Ячейка " + (char) (k + 65) + (j) + " имеет неизвестный тип");
                     }
+
+                    paramsTypes[k - startCell] = params[k - startCell].getClass();
                 }
                 try {
                     Constructor<T> constructor = tClass.getConstructor(paramsTypes);

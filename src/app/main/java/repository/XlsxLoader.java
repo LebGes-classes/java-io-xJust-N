@@ -17,7 +17,7 @@ import static app.main.java.repository.FileStringsEnum.*;
 public class XlsxLoader implements DataLoader {
     private final ExcelParser parser;
 
-    XlsxLoader(){
+    public XlsxLoader(){
         parser = new ExcelParser(new File(XLSX_FILE_NAME.getValue()));
     }
 
@@ -31,11 +31,9 @@ public class XlsxLoader implements DataLoader {
     }
 
     private <T extends Nameable> Map<String, T> loadAndToMap(String sheetName, Class<T> tClass) throws IOException {
-        Map<String, T> map = new HashMap<>();
+        Map<String, T> mapping = new HashMap<>();
         List<T> list = parser.parseObjectsFromSheetName(sheetName, tClass);
-        for(T tObject : list){
-            map.put(tObject.getName(), tObject);
-        }
-        return map;
+        list.forEach(s -> mapping.put(s.getName(), s));
+        return mapping;
     }
 }

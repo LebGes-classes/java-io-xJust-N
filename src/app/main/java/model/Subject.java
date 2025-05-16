@@ -2,18 +2,14 @@ package app.main.java.model;
 
 public class Subject implements Printable, Nameable{
     private String name;
-    private Teacher teacher;
+    private String teacherName;
 
     Subject(String name){
         this.name = name;
     }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    Subject(String name, String teacherName){
+        this.name = name;
+        this.teacherName = teacherName;
     }
 
     @Override
@@ -25,6 +21,15 @@ public class Subject implements Printable, Nameable{
     public String getName() {
         return name;
     }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
 
     @Override
     public int hashCode() {

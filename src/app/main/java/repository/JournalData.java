@@ -25,7 +25,7 @@ public class JournalData {
         return instance;
     }
 
-    public void load(DataLoader loadStrategy) throws IOException {
+    public static void load(DataLoader loadStrategy) throws IOException {
         loadStrategy.load();
     }
 

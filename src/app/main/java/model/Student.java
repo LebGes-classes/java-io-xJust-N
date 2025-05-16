@@ -1,6 +1,10 @@
 package app.main.java.model;
 
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class Student implements Printable, Nameable{
     private String name;
@@ -8,11 +12,6 @@ public class Student implements Printable, Nameable{
 
     public Student(String name){
         marks = new HashMap<>();
-    }
-    public Student(String name, String subjectName, Integer... subjectMarks){
-        setName(name);
-        this.marks = new HashMap<>();
-        marks.put(subjectName, Arrays.stream(subjectMarks).toList());
     }
 
     public void addMark(String subName, List<Integer> listOfMarks){
