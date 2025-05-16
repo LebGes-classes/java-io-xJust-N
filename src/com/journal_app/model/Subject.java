@@ -23,10 +23,6 @@ public class Subject implements Printable, Nameable{
         return name;
     }
 
-    public String getTeacherName() {
-        return teacherName;
-    }
-
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
     }
@@ -40,6 +36,6 @@ public class Subject implements Printable, Nameable{
     @Override
     public String getInfo() {
         return "Название: " + name + "\n" +
-                "Преподаватель: " + teacherName + "\n";
+                    "\tПреподаватель: " + teacherName + "\n";
     }
 }

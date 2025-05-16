@@ -10,8 +10,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-import static com.journal_app.repository.FileStringsEnum.XLSX_FILE_NAME;
-
 
 public class ExcelParser {
     private final File file;
@@ -24,7 +22,7 @@ public class ExcelParser {
         List<T> listOfObjects = new LinkedList<>();
 
         try (FileInputStream fis = new FileInputStream(file);
-             XSSFWorkbook workbook = new XSSFWorkbook(file)) {
+             XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
             Sheet sheet = workbook.getSheet(sheetName);
             if (sheet == null)
                 return null;
