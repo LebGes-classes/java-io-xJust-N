@@ -1,6 +1,7 @@
 package com.journal_app.handlers.object;
 import com.journal_app.model.Subject;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class SubjectInputHandler extends ObjectInputHandler<Subject> {
@@ -9,14 +10,14 @@ public class SubjectInputHandler extends ObjectInputHandler<Subject> {
     }
 
     @Override
-    public void handle(String command) {
+    public void handle(String command) throws IOException {
         super.handle(command);
     }
 
     @Override
     void newObjectMenu() {
         String name = ui.read("Введите имя");
-        mapping.put(name, new Subject(name));
+        add(new Subject(name));
     }
 
     @Override

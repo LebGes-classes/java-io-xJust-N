@@ -5,6 +5,7 @@ import com.journal_app.model.Nameable;
 import com.journal_app.model.Printable;
 import com.journal_app.ui.Ui;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -18,7 +19,7 @@ public abstract class ObjectInputHandler<T extends Printable & Nameable>  extend
     }
 
     @Override
-    public void handle(String command) {
+    public void handle(String command) throws IOException {
         switch (command) {
             case "1" -> infoMenu();
             case "2" -> newObjectMenu();
@@ -28,7 +29,8 @@ public abstract class ObjectInputHandler<T extends Printable & Nameable>  extend
 
     abstract void newObjectMenu();
 
-    private void deleteObjectMenu(){
+    private void deleteObjectMenu() throws IOException {
+        ui.print("Введите имя");
         deleteByName(ui.read());
     };
 
@@ -39,7 +41,7 @@ public abstract class ObjectInputHandler<T extends Printable & Nameable>  extend
                 "3) Удалить\n";
     }
 
-    private void infoMenu() {
+    private void infoMenu() throws IOException {
         ui.clearConsole();
         ui.print("1) Показать обо всех\n" +
                 "2) Показать об одном\n"
@@ -55,15 +57,20 @@ public abstract class ObjectInputHandler<T extends Printable & Nameable>  extend
         ui.waitForInput();
     }
 
-    protected T getObjectByName(String name) throws NoSuchElementException {
-        if (!mapping.containsKey(name)) throw new NoSuchElementException(name + " не найден");
+    protected T getObjectByName(String name) throws IOException {
+        if (!mapping.containsKey(name)) throw new IOException(name + " не найден");
         return mapping.get(name);
     }
-    protected void deleteByName(String name){
-        if (!mapping.containsKey(name)) throw new NoSuchElementException(name + " не найден");
+    protected void deleteByName(String name) throws IOException {
+        if (!mapping.containsKey(name)) throw new IOException(name + " не найден");
         mapping.remove(name);
     }
     protected void add(T obj){
         mapping.put(obj.getName(), obj);
+    }
+
+    protected int parseInt(String number) throws IOException {
+        if(!number.matches("^[1-9]\\d*$")) throw new IOException("Неверный формат ввода числа");
+        return Integer.parseInt(number);
     }
 }
