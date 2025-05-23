@@ -1,6 +1,7 @@
 package com.journal_app.handlers;
 
 import com.journal_app.repository.JournalData;
+import com.journal_app.repository.loaders.BinaryLoader;
 import com.journal_app.repository.loaders.JsonLoader;
 import com.journal_app.repository.loaders.XlsxLoader;
 
@@ -18,6 +19,8 @@ public class LoadInputHandler extends InputHandler {
                 case ("2"):
                     JournalData.load(new JsonLoader());
                     break;
+                case("3"):
+                    JournalData.load(new BinaryLoader());
             }
     }
 
@@ -26,6 +29,7 @@ public class LoadInputHandler extends InputHandler {
     public String getInfo() {
         return "Выберете откуда вы хотите загрузить:\n" +
                 "1) .xlsx\n" +
-                "2) .json";
+                "2) .json\n" +
+                "3) .bin";
     }
 }

@@ -5,7 +5,8 @@ public enum FileStringsEnum {   //Строки связанные с входн�
     SUBJECTS("предметы"),
     STUDENTS("студенты"),
     XLSX_FILE_NAME("resources/journal.xlsx"),
-    JSON_FILE_NAME("resources/journal.json");
+    JSON_FILE_NAME("resources/journal.json"),
+    BINARY_FILE_NAME("resources/journal.bin");
 
     private final String value;
 

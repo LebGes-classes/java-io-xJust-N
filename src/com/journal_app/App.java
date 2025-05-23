@@ -3,6 +3,7 @@ package com.journal_app;
 import com.journal_app.handlers.InputHandler;
 import com.journal_app.handlers.LoadInputHandler;
 import com.journal_app.handlers.MainMenuInputHandler;
+import com.journal_app.handlers.SaveInputHandler;
 import com.journal_app.repository.JournalData;
 import com.journal_app.repository.savers.JsonSaver;
 import com.journal_app.ui.Ui;
@@ -11,7 +12,6 @@ import java.io.IOException;
 
 public class App {
     private boolean isRunning;
-    private final JournalData data = JournalData.getInstance();
     private InputHandler handler;
     private final Ui ui;
     App(){
@@ -63,9 +63,12 @@ public class App {
             handler = handler.getNextHandler();
         }
     }
+
     private void save() {
+        handler = new SaveInputHandler();
+        ui.printMenu(handler);
         try {
-            data.save(new JsonSaver());
+            handler.handle(ui.read());
         } catch (IOException e) {
             throw new RuntimeException("Не удалось сохранить файл:\n" + e + "\n:(");
         }

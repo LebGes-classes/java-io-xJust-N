@@ -12,7 +12,11 @@ import static com.journal_app.repository.FileStringsEnum.JSON_FILE_NAME;
 public class JsonSaver implements DataSaver {
     @Override
     public void save(JournalData data) throws IOException {
-        JsonDataHandler handler = new JsonDataHandler(new File(JSON_FILE_NAME.getValue()));
+        File file = new File(JSON_FILE_NAME.getValue());
+        if(!file.exists())
+            file.createNewFile();
+
+        JsonDataHandler handler = new JsonDataHandler(file);
         handler.saveToJson(data);
     }
 }

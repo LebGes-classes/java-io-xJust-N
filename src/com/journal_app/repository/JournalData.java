@@ -5,10 +5,11 @@ import com.journal_app.model.Subject;
 import com.journal_app.model.Teacher;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JournalData {
+public class JournalData implements Serializable {
     private static JournalData instance = new JournalData();
     private Map<String, Teacher> teachers;
     private Map<String, Student> students;
@@ -30,8 +31,8 @@ public class JournalData {
     public static void load(DataLoader loadStrategy) throws IOException {
         loadStrategy.load();
     }
-    public void save(DataSaver saveStrategy) throws IOException {
-        saveStrategy.save(this);
+    public static void save(DataSaver saveStrategy) throws IOException {
+        saveStrategy.save(instance);
     }
 
     public Map<String, Teacher> getTeachers() {

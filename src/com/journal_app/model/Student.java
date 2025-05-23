@@ -1,6 +1,8 @@
 package com.journal_app.model;
 
-public class Student implements Printable, Nameable{
+import java.io.Serializable;
+
+public class Student implements Printable, Nameable, Serializable {
     private String name;
     private int averageMark;
 

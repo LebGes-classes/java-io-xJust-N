@@ -1,6 +1,8 @@
 package com.journal_app.model;
 
-public class Teacher implements Printable, Nameable{
+import java.io.Serializable;
+
+public class Teacher implements Printable, Nameable, Serializable {
     private String name;
 
     public Teacher(String name){
